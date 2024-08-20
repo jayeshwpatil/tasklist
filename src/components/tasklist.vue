@@ -1,71 +1,86 @@
 <template>
-  <div class="container mt-4 py-5 ">
+  <div class="container py-5 ">
     <div class="row ">
 
-      <div class="col-sm-6">
-        <div class="card mx-auto" style="width:300px; ">
-          <img src="../../public/todo.jpg" class="card-img-top" alt="Todo">
-          <div class="card-body">
-            <h4 class="card-title text-primary">Basic Task List</h4>
-            <p class="card-text">Create, delete your task list effortlessly.</p>
-            <hr class="hrSet">
+      <div class="col-sm-6 mt-5 ">
+        <div class="card mx-auto border-0" style="width:300px; ">
+          <img src="../../public/todo.jpg" height="150" class="card-img-top border border-dark" alt="Basic Task list">
+          <div class="card-body border border-dark">
+            <h5 class="card-title text-dark">Basic Task List</h5>
+            <p class="card-text">Features</p>
+            <ul>
+              <li>Create, Delete Task</li>
+            </ul>
             <input type="text" class="form-control" v-model.trim="taskName" @keyup.enter="runTask"
               placeholder="Enter your task">
-            <button class="btn btn-success form-control mt-2 btn-sm " type="submit" @click="runTask">Add to
+            <button class="btn btn-success form-control mt-2 btn-sm " type="submit" @click="runTask">Add to Task
               list</button>
           </div>
-          <ul class="list-group list-group-flush">
+          <ul v-if="arraylist.length > 0" class="list-group list-group-flush border mt-3  border-success customGreen">
+            <h6 class="px-3 py-2"><span class="badge text-bg-warning">{{ arraylist.length }}</span> Pending Task
+            </h6>
             <li v-for="(data, index) in arraylist" :key="index" class="list-group-item d-flex justify-content-between ">
               <div>
                 <span class="">{{ data.taskName }}</span>
               </div>
               <div>
-                <button class="btn btn-sm btn-danger" @click="deleteTask(index)"><i class="bi bi-trash"></i></button>
+                <button class="btn btn-sm btn-danger custButton" @click="deleteTask(index)"><i
+                    class="bi bi-trash"></i></button>
               </div>
             </li>
           </ul>
         </div>
       </div>
 
-      <div class="col-sm-6">
-        <div class="card mx-auto" style="width:300px;">
-          <img src="../../public/todo1.jpg" class="card-img-top" alt="Todo">
-          <div class="card-body">
-            <h4 class="card-title text-primary">Advance Task List</h4>
-            <p class="card-text">Create, manage and delete your task list effortlessly.</p>
-            <hr class="hrSet">
+      <div class="col-sm-6 mt-5 ">
+        <div class="card mx-auto border-0 " style="width:300px;">
+          <img src="../../public/todo1.jpg" height="150" class="card-img-top border border-dark"
+            alt="Advance Task List">
+          <div class="card-body border border-dark">
+            <h5 class="card-title text-dark">Advance Task List</h5>
+            <p class="card-text">Features</p>
+            <ul>
+              <li>Create, Delete Task</li>
+              <li>Edit Task</li>
+              <li>Time stamp</li>
+              <li>Blank task not Allowed</li>
+              <li>Undo Deleted Task</li>
+            </ul>
             <input type="text" class="form-control" v-model.trim="newtaskName" @keyup.enter="advrunTask"
               placeholder="Enter your task">
             <button class="btn btn-success form-control mt-2 btn-sm " type="submit" @click="advrunTask">Add to
-              list</button>
+              Task list</button>
           </div>
-          <ul v-if="newarraylist.length > 0" class="list-group list-group-flush">
-            <h6 class="p-3"><span class="badge text-bg-warning">{{ newarraylist.length }}</span> Pending Task </h6>
+          <ul v-if="newarraylist.length > 0" class="list-group list-group-flush border mt-3 border-success customGreen">
+            <h6 class="px-3 py-2"><span class="badge text-bg-warning">{{ newarraylist.length }}</span> Pending Task
+            </h6>
             <li v-for="(data, index) in newarraylist" :key="index"
-              class="list-group-item d-flex justify-content-between customGreen ">
+              class="list-group-item d-flex justify-content-between  ">
               <div class="col1">
                 <span class="fw-bold">{{ data.newtaskName }}</span>
                 <br><span class="smallFont"><i class="bi bi-clock"></i> {{ data.dateTime }}</span>
               </div>
               <div class="col2">
-                <button class="btn btn-sm btn-danger mx-1" @click="adveditTask(index, data)" title="Edit"><i
+                <button class="btn btn-sm btn-danger mx-1 custButton" @click="adveditTask(index, data)" title="Edit"><i
                     class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-sm btn-danger" @click="advdeleteTask(index, data)" title="Delete"><i
+                <button class="btn btn-sm btn-danger custButton" @click="advdeleteTask(index, data)" title="Delete"><i
                     class="bi bi-trash"></i></button>
               </div>
             </li>
           </ul>
-          <ul v-if="newarraylistDeleted.length > 0" class="list-group list-group-flush">
-            <h6 class="p-3"><span class="badge text-bg-warning">{{ newarraylistDeleted.length }}</span> Completed Task
+          <ul v-if="newarraylistDeleted.length > 0"
+            class="list-group list-group-flush border mt-3 border-danger customRed">
+            <h6 class="px-3 py-2"><span class="badge text-bg-warning">{{ newarraylistDeleted.length }}</span> Completed
+              Task
             </h6>
             <li v-for="(data, index) in newarraylistDeleted" :key="index"
-              class="list-group-item d-flex justify-content-between customRed ">
+              class="list-group-item d-flex justify-content-between  ">
               <div>
                 <span class="fw-bold">{{ data.newtaskName }}</span>
                 <br><span class="smallFont"><i class="bi bi-clock"></i> {{ data.dateTime }}</span>
               </div>
               <div>
-                <button class="btn btn-sm btn-danger mx-1" @click="backToPending(index, data)"
+                <button class="btn btn-sm btn-danger mx-1 custButton" @click="backToPending(index, data)"
                   title="Back to Pending TAsk"><i class="bi  bi-arrow-counterclockwise"></i></button>
               </div>
             </li>
@@ -94,6 +109,7 @@ const runTask = () => {
 
   arraylist.value.unshift({ "taskName": taskName.value });
   taskName.value = ""
+  console.log(arraylist.value)
 
 }
 
@@ -134,10 +150,6 @@ const backToPending = (index, data) => {
 </script>
 
 <style scoped>
-.container {
-  background: #f4f4f4;
-}
-
 .smallFont {
   font-size: 9px;
   color: #666
@@ -151,13 +163,15 @@ const backToPending = (index, data) => {
   background: rgb(247, 224, 224);
 }
 
-.col1 {
-  width: 72%;
+.custButton {
+  font-size: 12px;
+  padding: 2px 5px;
 }
 
-.col2 {
-  width: 28%;
+.list-group-item {
+  border: 1px dashed #ccc;
 }
+
 
 .hrSet {
   border-top: 1px solid #999;
