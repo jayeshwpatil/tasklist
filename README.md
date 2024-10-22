@@ -1,35 +1,6 @@
-# tasklist-vue3
 
-This template should help get you started developing with Vue 3 in Vite.
+live Page : https://jayeshwpatil.github.io/tasklist/
 
-## Recommended IDE Setup
+in this project u can create tasklist and after completing that task u can delete the task. at the end u will get exact amount of task u completed and how many pending task are there there are 2 task list one is basic and another one is advance
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+in basic task list add and delete function, nothing else in advance task list u got add, edit, delete functionality, date time spamp when u create task, blank task not allowed, u can undelete ur task to pending list
